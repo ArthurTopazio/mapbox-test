@@ -1,4 +1,4 @@
-import MapPage from "./pages/MaoPage/MapPage";
+import MapPage from "./pages/MapPage/MapPage";
 
 
 function App() {
