@@ -1,10 +1,12 @@
+import MapPage from "./pages/MaoPage/MapPage";
 
 
 function App() {
+
   return (
-    <div>
-      Hello map
-    </div>
+    <>
+      <MapPage />
+    </>
   );
 }
 
