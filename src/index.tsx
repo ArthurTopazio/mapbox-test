@@ -4,11 +4,12 @@ import { createContext } from 'react';
 import UserStore from './store/UserStore';
 import LocationStore from './store/LocationStore';
 import { userTest, coordinatesTest } from './utils/consts';
+import { $FixMe } from './models/any';
 
 import App from './App';
 import './index.css';
 
-export const Context = createContext<any | null>(null);
+export const Context = createContext<$FixMe>(null);
 
 ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

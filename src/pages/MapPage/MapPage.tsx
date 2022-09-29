@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import Map, { GeolocateControl, Marker, NavigationControl } from 'react-map-gl';
+import Map, { GeolocateControl, Marker, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
+import LocationDataCard from '../../components/LocationDataCard/LocationDataCard';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { mapStyle } from '.';
@@ -19,25 +20,32 @@ const MapPage = observer(() => {
 
   const [lng, setLang] = useState(longitude);
   const [lat, setLat] = useState(latitude);
-  const [zoom, setZoom] = useState(8);
+  const [zoom, setZoom] = useState(8); //неиспользуемое состояние
+
+  const onMoveHandler = (e: ViewStateChangeEvent) => {
+    setLang(e.viewState.longitude);
+    setLat(e.viewState.latitude);
+  };
 
   return (
-    <Map
-      mapboxAccessToken={token}
-      style={mapStyle}
-      initialViewState={{
-        longitude: lng,
-        latitude: lat,
-        zoom
-      }}
-      mapStyle={MapStyles.STREETS_9}
-    >
-      {markersCollection.map(item =>
-        <Marker {...item.coordinates} key={item.name} />
-      )}
-      <NavigationControl position='bottom-left' />
-      <GeolocateControl />
-    </Map>
+    <>
+      <LocationDataCard latitude={lat} longitude={lng} />
+      <Map
+        mapboxAccessToken={token}
+        style={mapStyle}
+        latitude={lat}
+        longitude={lng}
+        zoom={zoom}
+        mapStyle={MapStyles.STREETS_9}
+        onMove={onMoveHandler}
+      >
+        {markersCollection.map(item =>
+          <Marker {...item.coordinates} key={item.name} />
+        )}
+        <NavigationControl position='bottom-right' />
+        <GeolocateControl position='bottom-right' />
+      </Map>
+    </>
   )
 });
 

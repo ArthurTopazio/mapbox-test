@@ -11,3 +11,5 @@ export const coordinatesTest: ICoordinates = {
   latitude: 50,
   longitude: 36,
 };
+
+export const locationServiceUrl = 'https://geocoding-api.open-meteo.com/v1/search';
