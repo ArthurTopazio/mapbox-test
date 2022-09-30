@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 
 import Map, { GeolocateControl, Marker, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
 import LocationDataCard from '../../components/LocationDataCard/LocationDataCard';
+import SetBar from '../../components/SetBar/SetBar';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { mapStyle } from '.';
@@ -30,6 +31,7 @@ const MapPage = observer(() => {
   return (
     <>
       <LocationDataCard latitude={lat} longitude={lng} />
+      <SetBar />
       <Map
         mapboxAccessToken={token}
         style={mapStyle}

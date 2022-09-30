@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import style from './LocationDataCard.module.css';
+
 interface LocationDataCardTPD {
   latitude: number,
   longitude: number
@@ -7,24 +9,11 @@ interface LocationDataCardTPD {
 
 const LocationDataCard: FC<LocationDataCardTPD> = ({ latitude, longitude }) => {
   return (
-    <div
-      style={{
-        position: 'fixed',
-        bottom: 28,
-        right: 50,
-        zIndex: 102,
-        color: '#06498d',
-        padding: '15px',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        borderRadius: '7px',
-        boxShadow: '0 0 3px gray'
-      }}>
+    <div className={style.wrapper}>
       <div>{`longitude: ${longitude.toFixed(2)}`}</div>
       <div>{`latitude: ${latitude.toFixed(2)}`}</div>
     </div>
   )
-}
+};
 
 export default LocationDataCard;
