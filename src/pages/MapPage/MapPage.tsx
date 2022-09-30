@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-
 import Map, { GeolocateControl, Marker, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 import LocationDataCard from '../../components/LocationDataCard/LocationDataCard';
 import SetBar from '../../components/SetBar/SetBar';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
 import { mapStyle } from '.';
 import { Context } from '../..';
 import { IUser } from '../../models/IUser';

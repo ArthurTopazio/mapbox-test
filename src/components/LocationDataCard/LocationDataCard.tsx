@@ -1,13 +1,9 @@
 import { FC } from 'react';
+import { ICoordinates } from '../../models/IСoordinates';
 
 import style from './LocationDataCard.module.css';
 
-interface LocationDataCardTPD {
-  latitude: number,
-  longitude: number
-};
-
-const LocationDataCard: FC<LocationDataCardTPD> = ({ latitude, longitude }) => {
+const LocationDataCard: FC<ICoordinates> = ({ latitude, longitude }) => {
   return (
     <div className={style.wrapper}>
       <div>{`longitude: ${longitude.toFixed(2)}`}</div>

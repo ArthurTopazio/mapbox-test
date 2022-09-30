@@ -1,10 +1,12 @@
-import style from './SetBar.module.css';
+import { useContext, useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+
+import { ILocation } from '../../models/ILocation';
+import { Context } from '../..';
+
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useContext, useEffect, useState } from 'react';
-import { ILocation } from '../../models/ILocation';
-import { observer } from 'mobx-react-lite';
-import { Context } from '../..';
+import style from './SetBar.module.css';
 
 const SetBar = observer(() => {
 
