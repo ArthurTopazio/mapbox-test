@@ -1,8 +1,8 @@
 .wrapper {
   position: fixed;
   top: 10px;
-  left: 10vw;
-  width: 80vw;
+  left: calc(10% - 25px);
+  width: 80%;
   height: 60px;
   z-index: 102;
   color: #06498d;
@@ -30,4 +30,10 @@
 
 .setBarItem:hover {
   border-bottom: 2px solid #e42e0d;
+}
+
+@media (max-width: 800px) {
+  .setBar {
+    display: none;
+  }
 }

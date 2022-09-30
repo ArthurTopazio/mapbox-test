@@ -16,6 +16,12 @@ export default class LocationStore {
     this._name = name
     this._coordinates = coordinates
   }
+  setLatitude(lat: number): void {
+    this._coordinates.latitude = lat
+  }
+  setLongitude(lng: number): void {
+    this._coordinates.longitude = lng
+  }
 
   get locationName(): string {
     return this._name

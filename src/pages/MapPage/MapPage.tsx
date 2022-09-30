@@ -19,24 +19,24 @@ const MapPage = observer(() => {
   const { token } = user.user as IUser;
   const { latitude, longitude } = location.locationCoordinates as ICoordinates;
 
-  const [lng, setLang] = useState(longitude);
-  const [lat, setLat] = useState(latitude);
+  /*const [lng, setLang] = useState(longitude);
+  const [lat, setLat] = useState(latitude);*/
   const [zoom, setZoom] = useState(8); //неиспользуемое состояние
 
   const onMoveHandler = (e: ViewStateChangeEvent) => {
-    setLang(e.viewState.longitude);
-    setLat(e.viewState.latitude);
+    location.setLatitude(e.viewState.latitude);
+    location.setLongitude(e.viewState.longitude);
   };
 
   return (
     <>
-      <LocationDataCard latitude={lat} longitude={lng} />
+      <LocationDataCard latitude={latitude} longitude={longitude} />
       <SetBar />
       <Map
         mapboxAccessToken={token}
         style={mapStyle}
-        latitude={lat}
-        longitude={lng}
+        latitude={latitude}
+        longitude={longitude}
         zoom={zoom}
         mapStyle={MapStyles.STREETS_9}
         onMove={onMoveHandler}
