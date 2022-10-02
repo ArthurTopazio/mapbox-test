@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import Map, { GeolocateControl, Marker, NavigationControl, ViewStateChangeEvent } from 'react-map-gl';
+import Map, { GeolocateControl, Marker, NavigationControl, ViewStateChangeEvent, Popup } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import LocationDataCard from '../../components/LocationDataCard/LocationDataCard';
@@ -42,7 +42,7 @@ const MapPage = observer(() => {
         onMove={onMoveHandler}
       >
         {markersCollection.map(item =>
-          <Marker {...item.coordinates} key={item.name} />
+          <Marker {...item.coordinates} key={item.name}><Popup {...item.coordinates}>{item.name}</Popup></Marker>
         )}
         <NavigationControl position='bottom-right' />
         <GeolocateControl position='bottom-right' />
