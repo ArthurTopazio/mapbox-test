@@ -1,14 +1,12 @@
-import TestComp from "./components/TestComp";
 import MapPage from "./pages/MapPage/MapPage";
 
 function App() {
 
   return (
     <>
-      <TestComp />
-      {/*<MapPage />*/}
+      <MapPage />
     </>
-  );
+  )
 }
 
 export default App;

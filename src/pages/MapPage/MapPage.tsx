@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import Map, { GeolocateControl, Marker, NavigationControl, ViewStateChangeEvent, Popup } from 'react-map-gl';
+import Map, { GeolocateControl, Marker, NavigationControl, ViewStateChangeEvent, Popup, GeolocateResultEvent } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import LocationDataCard from '../../components/LocationDataCard/LocationDataCard';
@@ -19,13 +19,15 @@ const MapPage = observer(() => {
   const { token } = user.user as IUser;
   const { latitude, longitude } = location.locationCoordinates as ICoordinates;
 
-  /*const [lng, setLang] = useState(longitude);
-  const [lat, setLat] = useState(latitude);*/
-  const [zoom, setZoom] = useState(8); //неиспользуемое состояние
+  const [zoom, setZoom] = useState(8);
 
   const onMoveHandler = (e: ViewStateChangeEvent) => {
     location.setLatitude(e.viewState.latitude);
     location.setLongitude(e.viewState.longitude);
+  };
+  const onGeoLocHandler = (e: GeolocateResultEvent) => {
+    location.setLatitude(e.coords.latitude);
+    location.setLongitude(e.coords.longitude);
   };
 
   return (
@@ -38,6 +40,7 @@ const MapPage = observer(() => {
         latitude={latitude}
         longitude={longitude}
         zoom={zoom}
+        onZoom={(e) => setZoom(e.viewState.zoom)}
         mapStyle={MapStyles.STREETS_9}
         onMove={onMoveHandler}
       >
@@ -45,7 +48,7 @@ const MapPage = observer(() => {
           <Marker {...item.coordinates} key={item.name}><Popup {...item.coordinates}>{item.name}</Popup></Marker>
         )}
         <NavigationControl position='bottom-right' />
-        <GeolocateControl position='bottom-right' />
+        <GeolocateControl position='bottom-right' onGeolocate={onGeoLocHandler} />
       </Map>
     </>
   )

@@ -1,57 +1,50 @@
 import { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { ILocation } from '../../models/ILocation';
-import { Context } from '../..';
+import { Context, RootState } from '../..';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import style from './SetBar.module.css';
 
 const SetBar = observer(() => {
+  // в МУИ автокомплите ворнинги ключей при совпадении имени города
+  const { location, cities } = useContext<RootState>(Context);
 
-  const { location } = useContext(Context);
-
-  //тестовые данные, исправить через сервис
-  const locationsList: ILocation[] = [
-    { name: 'Tokyo', coordinates: { latitude: 35.6895, longitude: 139.692 } },
-    { name: 'Kharkiv', coordinates: { latitude: 50, longitude: 36 } },
-    { name: 'Oslo', coordinates: { latitude: 59.91, longitude: 10.75 } },
-    { name: 'Berlin', coordinates: { latitude: 52.52, longitude: 13.41 } },
-    { name: 'Roma', coordinates: { latitude: 41.89, longitude: 12.51 } },
-  ];
-  const list = [
-    'Tokyo', 'Kharkiv', 'Oslo', 'Berlin', 'Roma'
-  ];
-
-  const [value, setValue] = useState<string | null>(list[1]);
+  const [value, setValue] = useState<string | null>(cities.citiesNames[1]);
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    if (locationsList.filter(item => item.name === value).length) {
-      const locationData = locationsList.filter(item => item.name === value)[0];
+    if (cities.citiesLocations.filter(item => item.name === value).length) {
+      const locationData = cities.citiesLocations.filter(item => item.name === value)[0];
       location.setLocation(locationData.name, locationData.coordinates);
     }
   }, [value]);
+
+  const onChangeHandler = (event: any, newValue: string | null) => {
+    setValue(newValue);
+  };
+  const onInputChangeHandler = (event: any, newInputValue: string) => {
+    setInputValue(newInputValue);
+    console.log(newInputValue);
+    cities.fetchCities(newInputValue);
+  };
 
   return (
     <div className={style.wrapper}>
       <Autocomplete
         value={value}
-        onChange={(event: any, newValue: string | null) => {
-          setValue(newValue);
-        }}
+        onChange={onChangeHandler}
         inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
+        onInputChange={onInputChangeHandler}
         disablePortal
         id="combo-box-demo"
-        options={list}
+        options={cities.citiesNames}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Search location..." />}
       />
       <div className={style.setBar}>
+        {/*неиспользуемая панель */}
         <div className={style.setBarItem}>My locations</div>
         <div className={style.setBarItem}>Settings</div>
         <div className={style.setBarItem}>Profile</div>

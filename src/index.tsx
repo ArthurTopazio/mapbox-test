@@ -12,6 +12,8 @@ import App from './App';
 import './index.css';
 
 export const Context = createContext<$FixMe>(null);
+
+console.warn('Вынести корневой стэйт')
 const rootState = {
   user: new UserStore(true, userTest),
   location: new LocationStore('Kharkiv', coordinatesTest),
