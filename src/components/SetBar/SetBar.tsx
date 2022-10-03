@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { Context, RootState } from '../..';
+import useDebounce from '../../hooks/useDebounce'; //теряется контекст экшена мобХ
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -13,6 +14,8 @@ const SetBar = observer(() => {
 
   const [value, setValue] = useState<string | null>(cities.citiesNames[1]);
   const [inputValue, setInputValue] = useState('');
+
+  // const debounceFetchCities = useDebounce(() => cities.fetchCities(inputValue), 500) теряется контекст экшена мобХ
 
   useEffect(() => {
     if (cities.citiesLocations.filter(item => item.name === value).length) {
@@ -26,7 +29,6 @@ const SetBar = observer(() => {
   };
   const onInputChangeHandler = (event: any, newInputValue: string) => {
     setInputValue(newInputValue);
-    console.log(newInputValue);
     cities.fetchCities(newInputValue);
   };
 
